@@ -1,0 +1,112 @@
+#Example Show
+#A fun light show with advanced and simple functions
+#1
+-0 // Start - Fade in from black
+    abs(sin(t))*255
+    abs(sin(t))*255
+    abs(sin(t))*255
+    wrap
+-1
+    abs(sin(rt*2))*255
+    255-(255*rt*2)
+    125-cos(rt*2)
+    wrap
+-2.9
+    255
+    0
+    0
+-3
+    255
+    255
+    0
+-3.1
+    0
+    255
+    0
+-3.2
+    0
+    255
+    255
+-3.3
+    0
+    0
+    255
+-3.4
+    255
+    0
+    255
+-3.5
+    255
+    255
+    255
+-3.6
+    255-(255*rt*2)
+    255-(255*rt*2)
+    255-(255*rt*2)
+-4.1
+    255+abs(255*sin(.1*(i+(100*rt))))
+    0
+    0
+    wrap
+-4.3
+    255+abs(255*sin(.1*(i+(100*rt))))
+    0
+    255+abs(255*sin(.1*(i+(100*rt))))
+    wrap
+-4.5
+    0
+    0
+    255+abs(255*sin(.1*(i+(100*rt))))
+    wrap
+-4.6
+    0
+    0
+    .8*(255+abs(255*sin(.1*(i+(100*rt)))))
+    wrap
+-4.7
+    0
+    0
+    .6*(255+abs(255*sin(.1*(i+(100*rt)))))
+    wrap
+-4.8
+    0
+    0
+    .2*(255+abs(255*sin(.1*(i+(100*rt)))))
+    wrap
+-4.9
+    0
+    0
+    0
+    wrap
+-5.5 // Rainbow
+    360*(i/(len*3))
+    min(100*rt*4, 100)
+    min(100*rt*4, 100)
+    wrap usehsv
+-5.75 // Moving Rainbow
+    360*((i+(50*rt))/(len*max(3-rt, .5)))
+    100
+    100
+    usehsv wrap
+-8 // White fade to red
+    255
+    255-(200*rt)
+    255-(80*rt)
+-9 // White fade to green
+    255-(200*rt)
+    255
+    255-(80*rt)
+-10 // White fade to blue
+    255-(200*rt)
+    255-(80*rt)
+    255
+-11 // TODO: Change to Spartronics Yellow
+    244
+    228
+    0
+-12 // Todo: Change to Spartronics Blue
+    0
+    103
+    185
+//-13
+//    goto0
