@@ -167,7 +167,7 @@ public class F {
                                                       (String) currentSeg.get("green"),
                                                       (String) currentSeg.get("blue"),
                                                       currentSeg.containsKey("wrap"),
-                                                      currentSeg.containsKey("hsv")));
+                                                      currentSeg.containsKey("usehsv")));
                 }
                 currentSeg = new HashMap<String, Object>();
                 currentSeg.put("startFrame", (int) Math.round(Math.floor(Float.parseFloat(l.substring(1).strip())*20f)));
@@ -196,7 +196,10 @@ public class F {
                 partOn = ConversionState.SEARCHING;
             } else if (partOn == ConversionState.SEARCHING) {
                 if (l.contains("wrap")) currentSeg.put("wrap", true);
-                if (l.contains("usehsv")) currentSeg.put("usehsv", true);
+                if (l.contains("usehsv")) {
+                    currentSeg.put("usehsv", true);
+                    System.err.println("FOUND HSV YEAAHHHHH");
+                }
             }
         }
 

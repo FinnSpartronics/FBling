@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.fbling.F.FMode;
 
 /* TODO Add Shuffleboard support 
+TODO add wrapping
+TODO add HSV
  */
 public class FBling extends SubsystemBase {
     public FShow show;
@@ -152,7 +154,11 @@ public class FBling extends SubsystemBase {
                 FFunctionSegment seg = ((FFunctionSegment) currentSegment);
                 for (int i = 0; i < ledLength; i++) {
                     Color c = ((FFunctionSegment) currentSegment).eval(i, ledLength, (frame-currentSegment.startFrame)/20d, frame);
-                    System.out.println(c);
+                    System.out.println(c + " - " + currentSegment.startFrame/20d + ", " + ((FFunctionSegment) currentSegment).red.function + ", " + 
+                        ((FFunctionSegment) currentSegment).green.function + ", " + 
+                        ((FFunctionSegment) currentSegment).blue.function + ", " +
+                        ((FFunctionSegment) currentSegment).useHSV + ", " + 
+                        ((FFunctionSegment) currentSegment).wrap);
                     ledBuffer.setLED(i, c);
                 }
                 led.setData(ledBuffer);
