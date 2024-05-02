@@ -10,7 +10,7 @@ public class FFunction {
     }
 
     public double calculate(int i, int length, double rt, int frame) {
-        String tmp = F.convertToInternalMath(function);
+        String tmp = function;
         tmp = (tmp.replaceAll("i", Integer.toString(i)).replaceAll("f", Integer.toString(frame)).replaceAll("len", Integer.toString(length)).replaceAll("rt", Double.toString(rt)).replaceAll("t", Float.toString(frame/20)));
         tmp = F.convertBackToReal(tmp);
         try {

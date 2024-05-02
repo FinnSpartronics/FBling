@@ -161,9 +161,9 @@ public class F {
             if ((partOn == ConversionState.INIT || partOn == ConversionState.SEARCHING) && l.startsWith("-")) {
                 if (partOn == ConversionState.SEARCHING) {
                     segments.add(new FFunctionSegment((int) currentSeg.get("startFrame"),
-                                                      (String) currentSeg.get("red"),
-                                                      (String) currentSeg.get("green"),
-                                                      (String) currentSeg.get("blue"),
+                                                      convertToInternalMath((String) currentSeg.get("red")),
+                                                      convertToInternalMath((String) currentSeg.get("green")),
+                                                      convertToInternalMath((String) currentSeg.get("blue")),
                                                       currentSeg.containsKey("wrap"),
                                                       currentSeg.containsKey("usehsv")));
                 }
@@ -177,7 +177,6 @@ public class F {
                     currentSeg = new HashMap<String, Object>();
                     ugoto = true;
                     partOn = ConversionState.INIT;
-                    System.out.println("FOUND GOTO");
                 } else if (l.contains("gofo")) {
                     segments.add(new FGotoSegment((int) currentSeg.get("startFrame"), (int) Math.floor(Float.parseFloat((l.substring(4).strip()))/20)));
                     currentSeg = new HashMap<String, Object>();
