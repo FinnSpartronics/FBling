@@ -13,8 +13,6 @@ import javax.script.ScriptEngineManager;
 import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import edu.wpi.first.wpilibj.Filesystem;
 
-// TODO - Wrapping
-// TODO - UseHSV
 public class F {
     public enum FMode {
         RUNNING,
@@ -179,6 +177,7 @@ public class F {
                     currentSeg = new HashMap<String, Object>();
                     ugoto = true;
                     partOn = ConversionState.INIT;
+                    System.out.println("FOUND GOTO");
                 } else if (l.contains("gofo")) {
                     segments.add(new FGotoSegment((int) currentSeg.get("startFrame"), (int) Math.floor(Float.parseFloat((l.substring(4).strip()))/20)));
                     currentSeg = new HashMap<String, Object>();
@@ -196,10 +195,7 @@ public class F {
                 partOn = ConversionState.SEARCHING;
             } else if (partOn == ConversionState.SEARCHING) {
                 if (l.contains("wrap")) currentSeg.put("wrap", true);
-                if (l.contains("usehsv")) {
-                    currentSeg.put("usehsv", true);
-                    System.err.println("FOUND HSV YEAAHHHHH");
-                }
+                if (l.contains("usehsv")) currentSeg.put("usehsv", true);
             }
         }
 

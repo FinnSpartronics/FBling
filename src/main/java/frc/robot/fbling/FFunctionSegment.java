@@ -14,32 +14,42 @@ public class FFunctionSegment extends FSegment {
     private static final float hsvr = 2.55f;
 
     public Color eval(int i, int length, double rt, int frame) {
+        double r = red.calculate(i, length, rt, frame);
+        double g = green.calculate(i, length, rt, frame);
+        double b = blue.calculate(i, length, rt, frame);
+        
         if (useHSV) {
-            int r = (int) (mnr(red.calculate(i, length, rt, frame)/2d));
-            int g = (int) (mnr(green.calculate(i, length, rt, frame)*hsvr));
-            int b = (int) (mnr(blue.calculate(i, length, rt, frame)*hsvr));
-            if (wrap) return Color.fromHSV((int) wrapClampHSV(r), (int) wrapClampHSV(g), (int) wrapClampHSV(b));
-            return Color.fromHSV(r,g,b);
+            if (wrap) return Color.fromHSV(wc100(r), wc100(g), wc100(b));
+            else return Color.fromHSV((int) (r/2), (int) (g*hsvr), (int) (b*hsvr));
         }
-        int r = (int) Math.round(mnr(red.calculate(i, length, rt, frame))/255d);
-        int g = (int) Math.round(mnr(green.calculate(i, length, rt, frame))/255d);
-        int b = (int) Math.round(mnr(blue.calculate(i, length, rt, frame))/255d);
-        if (wrap) {
-            return new Color(wrapClamp(r), wrapClamp(g), wrapClamp(b));
-        }
-        return new Color(r,g,b);
+
+        if (wrap) return new Color(wc(r), wc(g), wc(b));
+        return new Color(r/255, g/255, b/255);
     }
 
-    private float wrapClamp(float x) {
-        if (x == 0) return 0;
-        if (x < 0) return (int) ((x - 0.1) % 255);
+    // Wrap Clamp
+    private int wc(double x) {
+        if (x == 0f) return 0;
+        if (x < 0)
+            return (int) ((x - 0.1) % 255);
         return (int) ((x - 0.1) % 255);
     }
 
-    private float wrapClampHSV(float x) {
-        if (x == 0) return 0;
-        if (x < 0) return (x - 0.000001f) % 1;
-        return (x - 0.000001f) % 1;
+    // Wrap Clamp 360
+    private int wc360(double x) {
+        x *= .5;
+        if (x == 0f) return 0;
+        if (x < 0)
+            return (int) ((x - 0.1) % 180);
+        return (int) ((x - 0.1) % 180);
+    }
+
+    private int wc100(double x) {
+        x *= hsvr;
+        if (x == 0f) return 0;
+        if (x < 0)
+            return (int) ((x - 0.1) % 255);
+        return (int) ((x - 0.1) % 255);
     }
 
     public FFunctionSegment(int startFrame, String redf, String greenf, String bluef) {

@@ -150,22 +150,19 @@ public class FBling extends SubsystemBase {
     }
 
     public void updateLed() {
-            if (currentSegment instanceof FFunctionSegment) {
-                FFunctionSegment seg = ((FFunctionSegment) currentSegment);
-                for (int i = 0; i < ledLength; i++) {
-                    Color c = ((FFunctionSegment) currentSegment).eval(i, ledLength, (frame-currentSegment.startFrame)/20d, frame);
-                    System.out.println(c + " - " + currentSegment.startFrame/20d + ", " + ((FFunctionSegment) currentSegment).red.function + ", " + 
-                        ((FFunctionSegment) currentSegment).green.function + ", " + 
-                        ((FFunctionSegment) currentSegment).blue.function + ", " +
-                        ((FFunctionSegment) currentSegment).useHSV + ", " + 
-                        ((FFunctionSegment) currentSegment).wrap);
-                    ledBuffer.setLED(i, c);
-                }
-                led.setData(ledBuffer);
-            } else if (currentSegment instanceof FGotoSegment) {
-                setFrame(((FGotoSegment) currentSegment).gotof);
-                updateLedCommand().execute();
+        if (currentSegment instanceof FFunctionSegment) {
+            FFunctionSegment seg = ((FFunctionSegment) currentSegment);
+            for (int i = 0; i < ledLength; i++) {
+                Color c = ((FFunctionSegment) currentSegment).eval(i, ledLength, (frame-currentSegment.startFrame)/20d, frame);
+                ledBuffer.setLED(i, c);
             }
+            led.setData(ledBuffer);
+        } else if (currentSegment instanceof FGotoSegment) {
+            System.out.println(((FGotoSegment) (currentSegment)).gotof);
+            setFrame(((FGotoSegment) currentSegment).gotof);
+            updateLedCommand().execute();
+        }
+        System.out.println(frame/20);
     }
 
     public Command updateLedCommand() {
