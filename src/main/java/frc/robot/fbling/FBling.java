@@ -9,10 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.fbling.F.FMode;
 
-/* TODO Add Shuffleboard support 
-TODO add wrapping
-TODO add HSV
- */
+/* TODO Add Shuffleboard support */
 public class FBling extends SubsystemBase {
     public FShow show;
 
@@ -20,7 +17,7 @@ public class FBling extends SubsystemBase {
     public AddressableLEDBuffer ledBuffer;
     private int ledLength;
 
-    private int frame = 0;
+    private double frame = 0;
     private FMode running = FMode.RUNNING;
 
     private FSegment currentSegment = null;
@@ -153,7 +150,7 @@ public class FBling extends SubsystemBase {
         if (currentSegment instanceof FFunctionSegment) {
             FFunctionSegment seg = ((FFunctionSegment) currentSegment);
             for (int i = 0; i < ledLength; i++) {
-                Color c = ((FFunctionSegment) currentSegment).eval(i, ledLength, (frame-currentSegment.startFrame)/20d, frame);
+                Color c = ((FFunctionSegment) currentSegment).eval(i, ledLength, (frame-currentSegment.startFrame)/20d, (int) Math.round(frame/2.5));
                 ledBuffer.setLED(i, c);
             }
             led.setData(ledBuffer);
@@ -162,7 +159,7 @@ public class FBling extends SubsystemBase {
             setFrame(((FGotoSegment) currentSegment).gotof);
             updateLedCommand().execute();
         }
-        System.out.println(frame/20);
+        System.out.println(frame/20d);
     }
 
     public Command updateLedCommand() {
@@ -172,12 +169,12 @@ public class FBling extends SubsystemBase {
     }
 
     public void step() {
-        frame++;
+        frame += 0.4d;
     }
 
     public Command stepCommand() {
         return runOnce(() -> {
-            frame++;
+            frame += .4d;
         });
     }
 
@@ -206,7 +203,7 @@ public class FBling extends SubsystemBase {
     }
 
     public FSegment getCurrSegment() {
-        int time = frame;
+        int time = (int) Math.round(frame/2.5);
         FSegment lastSeg = null;
 
         for (FSegment seg : show.segments) {
@@ -248,7 +245,7 @@ public class FBling extends SubsystemBase {
         this.frame = f;
     }
     public void setFrame(int f) { goToFrame(f); }
-    public int getFrame() { return frame; }
+    public int getFrame() { return (int) Math.round(frame/2.5); }
 
     //#endregion
 

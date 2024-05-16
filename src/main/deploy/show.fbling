@@ -2,14 +2,14 @@
 #A fun light show with advanced and simple functions
 #1
 -0 // Start - Fade in from black
-    abs(sin(t))*255
-    abs(sin(t))*255
-    abs(sin(t))*255
+    0 + abs (sin (t) ) * 255
+    0 + abs (sin (t) ) * 255
+    0 + abs (sin (t) ) * 255
     wrap
 -1
-    abs(sin(rt*2))*255
-    255-(255*rt*2)
-    125-cos(rt*2)
+    abs ( sin ( rt * 2 ) ) * 255
+    255 - ( 255 * rt * 2 )
+    125 - cos ( rt * 2 )
     wrap
 -2.9
     255
@@ -78,16 +78,16 @@
     0
     0
     wrap
--5.5 // Rainbow
-    360*(i/(len*3))
-    min(100*rt*4, 100)
-    min(100*rt*4, 100)
-    wrap usehsv
--5.75 // Moving Rainbow
-    360*((i+(50*rt))/(len*max(3-rt, .5)))
-    100
-    100
-    usehsv wrap
+//-5.5 // Rainbow
+//    360*(i/(len*3))
+//    min(100*rt*4, 100)
+//    min(100*rt*4, 100)
+//    wrap usehsv
+//-5.75 // Moving Rainbow
+//    360*((i+(50*rt))/(len*max(3-rt, .5)))
+//    100
+//    100
+//    usehsv wrap
 -8 // White fade to red
     255
     255-(200*rt)
